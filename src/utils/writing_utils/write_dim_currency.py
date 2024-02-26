@@ -10,7 +10,7 @@ from pg8000.native import Connection, literal, identifier, DatabaseError
 
 
 def write_dim_currency(con, data, updated=dt.now()):
-    dim_currency_colums = ['currency_record_id', 'currency_id', 'currency_code', 
+    dim_currency_columns = ['currency_record_id', 'currency_id', 'currency_code', 
                            'currency_name', 'last_updated_date', 'last_updated_time']
     for data_point in data:
         values = [
@@ -21,7 +21,7 @@ def write_dim_currency(con, data, updated=dt.now()):
             updated.date(),
             updated.time()
         ]
-        dim_courrency_query = f"""
+        dim_currency_query = f"""
         INSERT INTO dim_currency
         VALUES
         ({literal(values[0])},{literal(values[1])},
@@ -29,4 +29,4 @@ def write_dim_currency(con, data, updated=dt.now()):
         {literal(values[4])},{literal(values[5])})
         ON CONFLICT DO NOTHING;
         """ 
-        con.run(dim_courrency_query)
+        con.run(dim_currency_query)
