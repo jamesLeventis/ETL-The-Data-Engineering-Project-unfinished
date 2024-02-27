@@ -61,32 +61,10 @@ def test_data_insertion_for_multiple_data():
         INSERT INTO dim_design
             VALUES
             ({data_point['design_id']},{data_point['design_id']},
-            {data_point['design_name']},{data_point['file_location']},
-            {data_point['file_name']},'2024-02-26',
+            '{data_point['design_name']}','{data_point['file_location']}',
+            '{data_point['file_name']}','2024-02-26',
             '10:30:00')
             ON CONFLICT DO NOTHING;""" for data_point in data]
 
     for i, data_point in enumerate(data):
-        print(con.run.call_args_list[i][0][0].strip())
         assert con.run.call_args_list[i][0][0].strip() == expected[i].strip()
-
-
-
-
-
-
-
-
-
-
-
-
-    # secret = get_secret('DB_write')
-    # con = Connection(secret['username'], 
-    #                 host = secret['host'],
-    #                 database = secret['dbname'],
-    #                 password = secret['password'])
-    # wdd(con, data, dt.now() )
-    # rows = con.run("DELETE FROM dim_design; ;")
-    # rows = con.run("SELECT * FROM dim_design LIMIT 10;")
-    # print(*rows, '<----------dim_design', sep='\n')
